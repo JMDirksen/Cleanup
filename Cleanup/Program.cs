@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Cleanup
@@ -21,6 +22,9 @@ namespace Cleanup
         static string logFilename = null;
         static StreamWriter logFile;
         static string rootDirectory;
+        static bool optFilter = false;
+        static string filter;
+        static string filterRegEx;
 
         static void Main(string[] args)
         {
@@ -42,6 +46,13 @@ namespace Cleanup
                         optLog = true;
                         if ( x.ToUpper().StartsWith("/LOG:") ) logFilename = x.Substring(5);
                         else logFilename = "Cleanup.log";
+                    }
+                    else if (x.ToUpper().StartsWith("/F:"))
+                    {
+                        optFilter = true;
+                        filter = x.Substring(3);
+                        filterRegEx = Regex.Escape(filter);
+                        filterRegEx = "^" + filterRegEx.Replace("\\*", ".+").Replace("\\?", ".") + "$";
                     }
                     else if (x != args[0] && x != args[1])
                     {
@@ -115,6 +126,12 @@ namespace Cleanup
                 //Get age of file in days
                 int age = GetFileAge(file);
 
+                //Match file on RegularExpression filter
+                if (optFilter)
+                {
+                    if(!Regex.IsMatch(file.Name,filterRegEx)) continue;
+                }
+
                 //Check if file is too old
                 if (age >= maxAge)
                 {
@@ -187,7 +204,7 @@ namespace Cleanup
             string usage;
             usage = "\n";
             usage += "-------------------------------------------------------------------------------\n";
-            usage += "   Cleanup v1.1  -  Delete old files and directories - TechnologySolutions©\n";
+            usage += "   Cleanup v1.2  -  Delete old files and directories - TechnologySolutions©\n";
             usage += "-------------------------------------------------------------------------------\n";
             usage += "\n";
             usage += "         Usage  :  Cleanup directory age [options]\n";
@@ -201,6 +218,8 @@ namespace Cleanup
             usage += "                   0 will delete all files.\n";
             usage += "\n";
             usage += "\n";
+            usage += "     /F:filter  :  Only delete files which match this filter\n";
+            usage += "                   Like: /F:*.abc or /F:filename.ab?\n";
             usage += "            /R  :  Recurse subdirecotries\n";
             usage += "            /D  :  Delete empty subdirectories\n";
             usage += "          /SIM  :  Simulate, don't delete anything\n";
