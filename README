@@ -4,7 +4,7 @@ Cleanup
 Console tool for cleaning up old files in a directory tree
 
 -------------------------------------------------------------------------------
-   Cleanup v1.1  -  Delete old files and directories - TechnologySolutions©
+   Cleanup v1.2  -  Delete old files and directories - TechnologySolutions©
 -------------------------------------------------------------------------------
 
          Usage  :  Cleanup directory age [options]
@@ -18,6 +18,8 @@ Console tool for cleaning up old files in a directory tree
                    0 will delete all files.
 
 
+     /F:filter  :  Only delete files which match this filter
+                   Like: /F:*.abc or /F:filename.ab?
             /R  :  Recurse subdirecotries
             /D  :  Delete empty subdirectories
           /SIM  :  Simulate, don't delete anything
