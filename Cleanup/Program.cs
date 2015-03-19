@@ -23,8 +23,11 @@ namespace Cleanup
         static StreamWriter logFile;
         static string rootDirectory;
         static bool optFilter = false;
+        static bool optExcludeFilter = false;
         static string filter;
         static string filterRegEx;
+        static string excludeFilter;
+        static string excludeFilterRegEx;
 
         static void Main(string[] args)
         {
@@ -50,9 +53,16 @@ namespace Cleanup
                     else if (x.ToUpper().StartsWith("/F:"))
                     {
                         optFilter = true;
-                        filter = x.Substring(3);
+                        filter = x.Substring(3).ToLower();
                         filterRegEx = Regex.Escape(filter);
                         filterRegEx = "^" + filterRegEx.Replace("\\*", ".+").Replace("\\?", ".") + "$";
+                    }
+                    else if (x.ToUpper().StartsWith("/EF:"))
+                    {
+                        optExcludeFilter = true;
+                        excludeFilter = x.Substring(4).ToLower();
+                        excludeFilterRegEx = Regex.Escape(excludeFilter);
+                        excludeFilterRegEx = "^" + excludeFilterRegEx.Replace("\\*", ".+").Replace("\\?", ".") + "$";
                     }
                     else if (x != args[0] && x != args[1])
                     {
@@ -129,7 +139,13 @@ namespace Cleanup
                 //Match file on RegularExpression filter
                 if (optFilter)
                 {
-                    if(!Regex.IsMatch(file.Name,filterRegEx)) continue;
+                    if(!Regex.IsMatch(file.Name.ToLower(),filterRegEx)) continue;
+                }
+
+                //Match file on RegularExpression exclude filter
+                if (optExcludeFilter)
+                {
+                    if (Regex.IsMatch(file.Name.ToLower(), excludeFilterRegEx)) continue;
                 }
 
                 //Check if file is too old
@@ -204,7 +220,7 @@ namespace Cleanup
             string usage;
             usage = "\n";
             usage += "-------------------------------------------------------------------------------\n";
-            usage += "   Cleanup v1.2  -  Delete old files and directories - TechnologySolutions©\n";
+            usage += "   Cleanup v1.3  -  Delete old files and directories - TechnologySolutions©\n";
             usage += "-------------------------------------------------------------------------------\n";
             usage += "\n";
             usage += "         Usage  :  Cleanup directory age [options]\n";
@@ -220,6 +236,8 @@ namespace Cleanup
             usage += "\n";
             usage += "     /F:filter  :  Only delete files which match this filter\n";
             usage += "                   Like: /F:*.abc or /F:filename.ab?\n";
+            usage += "    /EF:filter  :  Exclude files which match this filter\n";
+            usage += "                   Like: /EF:keep.me or /EF:*.doc\n";
             usage += "            /R  :  Recurse subdirecotries\n";
             usage += "            /D  :  Delete empty subdirectories\n";
             usage += "          /SIM  :  Simulate, don't delete anything\n";
