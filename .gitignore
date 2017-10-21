@@ -43,3 +43,11 @@ Ankh.NoLoad
 
 # visual studio database projects
 *.dbmdl
+
+#other
+/Cleanup/Properties/app.manifest
+/Cleanup/Properties/Resources.Designer.cs
+/Cleanup/Properties/Settings.Designer.cs
+/Cleanup/Properties/Settings.settings
+/Cleanup/Cleanup_TemporaryKey.pfx
+/Cleanup/Properties/Resources.resx
