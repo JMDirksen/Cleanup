@@ -28,6 +28,7 @@ namespace Cleanup
         static string filterRegEx;
         static string excludeFilter;
         static string excludeFilterRegEx;
+        static string ignoreFile = ".cleanupignore";
 
         static void Main(string[] args)
         {
@@ -115,6 +116,16 @@ namespace Cleanup
         static void CleanupDirectory(string directory)
         {
             DirectoryInfo dirInfo = new DirectoryInfo(directory);
+
+            // Ignore current directory if ignoreFile exists
+            string ignoreFilePath = Path.Combine(dirInfo.FullName, ignoreFile);
+            if (File.Exists(ignoreFilePath))
+            {
+                Output(" Skipping directory ({1} file exists) : {0}", directory, ignoreFile);
+                return;
+            }
+
+            // Process directories
             DirectoryInfo[] dirs = dirInfo.GetDirectories();
             
             foreach (DirectoryInfo dir in dirs)
@@ -171,7 +182,7 @@ namespace Cleanup
                     }
                 }
             }
-                
+
             
             //Delete directory if option /D is supplied, not the root folder and is empty
             try
