@@ -30,6 +30,7 @@ ipch/
 [Dd]ebug*/
 [Rr]elease*/
 Ankh.NoLoad
+.vs/
 
 #Project files
 [Bb]uild/

@@ -230,9 +230,9 @@ namespace Cleanup
         {
             string usage;
             usage = "\n";
-            usage += "-------------------------------------------------------------------------------\n";
-            usage += "   Cleanup v1.3  -  Delete old files and directories - TechnologySolutions©\n";
-            usage += "-------------------------------------------------------------------------------\n";
+            usage += "------------------------------------------------------------------------------\n";
+            usage += "   Cleanup v1.4  -  Delete old files and directories - TechnologySolutions\n";
+            usage += "------------------------------------------------------------------------------\n";
             usage += "\n";
             usage += "         Usage  :  Cleanup directory age [options]\n";
             usage += "\n";
@@ -255,6 +255,9 @@ namespace Cleanup
             usage += "          /LOG  :  Write output to screen and to Cleanup.log\n";
             usage += "  /LOG:logfile  :  Write output to screen and to logfile\n";
             usage += "                   Like: /LOG:cleanup.log or /LOG:\"C:\\Log Files\\cleanup.log\"\n";
+            usage += "\n";
+            usage += "\n";
+            usage += ".cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it.\n";
             usage += "\n";
             Console.WriteLine(usage);
         }
