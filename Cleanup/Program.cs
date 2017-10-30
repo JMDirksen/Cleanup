@@ -16,12 +16,14 @@ namespace Cleanup
         static int totalErrors = 0;
         static int maxAge = 0;
         static bool optDeleteEmpty = false;
+        static int optDeleteEmptyLevel = 1;
         static bool optRecurse = false;
         static bool optSimulate = false;
         static bool optLog = false;
         static string logFilename = null;
         static StreamWriter logFile;
         static string rootDirectory;
+        static int rootDirectoryDepth;
         static bool optFilter = false;
         static bool optExcludeFilter = false;
         static string filter;
@@ -38,11 +40,20 @@ namespace Cleanup
             try
             {
                 rootDirectory = args[0];
+
+                // Remove trailing slash from rootDirectory (needed for correct depth calculation)
+                if (rootDirectory.EndsWith(Path.DirectorySeparatorChar.ToString())) rootDirectory = rootDirectory.TrimEnd(Path.DirectorySeparatorChar);
+
                 maxAge = int.Parse(args[1]);
                 foreach (string x in args)
                 {
                     parameters += x + " ";
                     if (x.ToUpper().Equals("/D")) optDeleteEmpty = true;
+                    else if (x.ToUpper().StartsWith("/D:"))
+                    {
+                        optDeleteEmpty = true;
+                        optDeleteEmptyLevel = int.Parse(x.Substring(3));
+                    }
                     else if (x.ToUpper().Equals("/R")) optRecurse = true;
                     else if (x.ToUpper().Equals("/SIM")) optSimulate = true;
                     else if (x.ToUpper().StartsWith("/LOG"))
@@ -102,6 +113,9 @@ namespace Cleanup
                 }
             }
 
+            // Get rootDirecotry depth
+            rootDirectoryDepth = Path.GetFullPath(rootDirectory).Split(Path.DirectorySeparatorChar).Length;
+
             // Go do stuff
             Output("Cleanup started with parameters: {0}", parameters);
             CleanupDirectory(rootDirectory);
@@ -115,6 +129,8 @@ namespace Cleanup
 
         static void CleanupDirectory(string directory)
         {
+            int depth = Path.GetFullPath(directory).Split(Path.DirectorySeparatorChar).Length - rootDirectoryDepth;
+
             DirectoryInfo dirInfo = new DirectoryInfo(directory);
 
             // Ignore current directory if ignoreFile exists
@@ -183,10 +199,10 @@ namespace Cleanup
             }
 
 
-            // Delete directory if option /D is supplied, not the root folder and is empty
+            // Delete directory if option /D is supplied and directory is at level (depth) optDeleteEmptyLevel or deeper and directory is empty
             try
             {
-                if (optDeleteEmpty && directory != rootDirectory && Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+                if (optDeleteEmpty && depth >= optDeleteEmptyLevel && Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
                 {
                     // Delete directory if not simulating
                     if (!optSimulate) Directory.Delete(directory);
@@ -249,7 +265,10 @@ namespace Cleanup
             usage += "    /EF:filter  :  Exclude files which match this filter\n";
             usage += "                   Like: /EF:keep.me or /EF:*.doc\n";
             usage += "            /R  :  Recurse subdirecotries\n";
-            usage += "            /D  :  Delete empty subdirectories\n";
+            usage += "            /D  :  Delete empty subdirectories (same as: /D:1)\n";
+            usage += "      /D:level  :  Only delete empty directories from specified level and below\n";
+            usage += "                   Like: Cleanup.exe c:\\rootdir 7 /r /d:2\n";
+            usage += "                   Will remove empty directory c:\\rootdir\\level1\\level2 but not directory level1\n";
             usage += "          /SIM  :  Simulate, don't delete anything\n";
             usage += "          /LOG  :  Write output to screen and to Cleanup.log\n";
             usage += "  /LOG:logfile  :  Write output to screen and to logfile\n";
