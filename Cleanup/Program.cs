@@ -120,7 +120,7 @@ namespace Cleanup
             if (optSimulate) Output("\nWould have deleted {0} files with a total size of {1}.", totalFiles, FormatSize(totalSize));
             else Output("\nDeleted {0} files ({1}) and {2} directories, encountered {3} errors.", totalFiles, FormatSize(totalSize), totalDirectories, totalErrors);
 
-            logFile.Close();
+            if (optLog) logFile.Close();
         }
 
         static void CleanupDirectory(string directory)
@@ -274,7 +274,7 @@ namespace Cleanup
         static void Output(string text, params object[] args)
         {
             Console.WriteLine(text, args);
-            Log(text, args);
+            if (optLog) Log(text, args);
         }
 
         static void Log(string text, params object[] args)
