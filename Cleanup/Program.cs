@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Cleanup
 {
     class Program
     {
+        static Version version = Assembly.GetExecutingAssembly().GetName().Version;
+        static string versionString = "v" + version.Major.ToString() + "." + version.Minor.ToString();
         static int totalFiles = 0;
         static long totalSize = 0;
         static int totalDirectories;
@@ -240,9 +243,9 @@ namespace Cleanup
         {
             string usage;
             usage = Environment.NewLine;
-            usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
-            usage += @"   Cleanup v1.5  -  Delete old files and directories - TechnologySolutions" + Environment.NewLine;
-            usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
+            usage += @"-----------------------------------------------------------------------------" + Environment.NewLine;
+            usage += String.Format(@"   Cleanup {0}  -  Delete old files and directories - TechnologySolutions{1}", versionString, Environment.NewLine);
+            usage += @"-----------------------------------------------------------------------------" + Environment.NewLine;
             usage += Environment.NewLine;
             usage += @"         Usage  :  Cleanup directory age [options]" + Environment.NewLine;
             usage += Environment.NewLine;
