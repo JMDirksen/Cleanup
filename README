@@ -4,30 +4,29 @@ Cleanup
 Console tool for cleaning up old files in a directory tree
 
 ------------------------------------------------------------------------------
-   Cleanup v1.4  -  Delete old files and directories - TechnologySolutions
+   Cleanup v1.5  -  Delete old files and directories - TechnologySolutions
 ------------------------------------------------------------------------------
 
          Usage  :  Cleanup directory age [options]
 
-
-     directory  :  Directory to cleanup.
+     directory  :  Directory to cleanup
                    Like: drive:\path or \\server\share\path
-
-           age  :  Delete files older than .. days.
-                   Looking at youngest date modified/created.
-                   0 will delete all files.
-
+           age  :  Delete files older than .. days
+                   Looking at youngest date modified/created
+                   0 will delete all files
 
      /F:filter  :  Only delete files which match this filter
                    Like: /F:*.abc or /F:filename.ab?
     /EF:filter  :  Exclude files which match this filter
                    Like: /EF:keep.me or /EF:*.doc
             /R  :  Recurse subdirecotries
-            /D  :  Delete empty subdirectories
+            /D  :  Delete empty subdirectories (same as: /D:1)
+      /D:level  :  Only delete empty directories from .. level and below
+                   Like: Cleanup.exe c:\rootdir 7 /r /d:2
+                   Will remove empty directory c:\rootdir\level1\level2 but not directory level1
           /SIM  :  Simulate, don't delete anything
           /LOG  :  Write output to screen and to Cleanup.log
   /LOG:logfile  :  Write output to screen and to logfile
                    Like: /LOG:cleanup.log or /LOG:"C:\Log Files\cleanup.log"
 
-
-.cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it.
+.cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it

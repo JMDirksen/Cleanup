@@ -241,7 +241,7 @@ namespace Cleanup
             string usage;
             usage = Environment.NewLine;
             usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
-            usage += @"   Cleanup v1.4  -  Delete old files and directories - TechnologySolutions" + Environment.NewLine;
+            usage += @"   Cleanup v1.5  -  Delete old files and directories - TechnologySolutions" + Environment.NewLine;
             usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
             usage += Environment.NewLine;
             usage += @"         Usage  :  Cleanup directory age [options]" + Environment.NewLine;
