@@ -34,7 +34,7 @@ namespace Cleanup
         {
             string parameters = "";
 
-            //Get arguments from command-line
+            // Get arguments from command-line
             try
             {
                 rootDirectory = args[0];
@@ -48,7 +48,7 @@ namespace Cleanup
                     else if (x.ToUpper().StartsWith("/LOG"))
                     {
                         optLog = true;
-                        if ( x.ToUpper().StartsWith("/LOG:") ) logFilename = x.Substring(5);
+                        if (x.ToUpper().StartsWith("/LOG:")) logFilename = x.Substring(5);
                         else logFilename = "Cleanup.log";
                     }
                     else if (x.ToUpper().StartsWith("/F:"))
@@ -75,20 +75,20 @@ namespace Cleanup
             }
             catch
             {
-                //Show Usage when something wrong/missing in arguments
+                // Show Usage when something wrong/missing in arguments
                 ShowUsage();
                 return;
             }
 
-            //Check if direcotry exists
+            // Check if direcotry exists
             if (!Directory.Exists(rootDirectory))
             {
                 Console.WriteLine("Directory {0} does not exist.\n", rootDirectory);
                 return;
             }
-            
-            //Open and check if logfile is writable
-            if(optLog)
+
+            // Open and check if logfile is writable
+            if (optLog)
             {
                 try
                 {
@@ -102,11 +102,11 @@ namespace Cleanup
                 }
             }
 
-            //Go do stuff
-            Output("Cleanup started with parameters: {0}",parameters);
+            // Go do stuff
+            Output("Cleanup started with parameters: {0}", parameters);
             CleanupDirectory(rootDirectory);
 
-            //Show summary
+            // Show summary
             if (optSimulate) Output("\nWould have deleted {0} files with a total size of {1}.", totalFiles, FormatSize(totalSize));
             else Output("\nDeleted {0} files ({1}) and {2} directories, encountered {3} errors.", totalFiles, FormatSize(totalSize), totalDirectories, totalErrors);
 
@@ -121,22 +121,21 @@ namespace Cleanup
             string ignoreFilePath = Path.Combine(dirInfo.FullName, ignoreFile);
             if (File.Exists(ignoreFilePath))
             {
-                Output(" Skipping directory ({1} file exists) : {0}", directory, ignoreFile);
+                Output(" Skipping directory ({1} file exists): {0}", directory, ignoreFile);
                 return;
             }
 
             // Process directories
             DirectoryInfo[] dirs = dirInfo.GetDirectories();
-            
+
             foreach (DirectoryInfo dir in dirs)
             {
-                //Recurse subdirectories
-                if(optRecurse) CleanupDirectory(dir.FullName);
+                // Recurse subdirectories
+                if (optRecurse) CleanupDirectory(dir.FullName);
             }
 
-            
-            //Process files in directory
-            //Output("Processing: " + directory);
+
+            // Process files in directory
             FileInfo[] files = null;
             files = dirInfo.GetFiles();
             foreach (FileInfo file in files)
@@ -144,27 +143,27 @@ namespace Cleanup
                 string fileFullName = file.FullName;
                 long fileSize = file.Length;
 
-                //Get age of file in days
+                // Get age of file in days
                 int age = GetFileAge(file);
 
-                //Match file on RegularExpression filter
+                // Match file on RegularExpression filter
                 if (optFilter)
                 {
-                    if(!Regex.IsMatch(file.Name.ToLower(),filterRegEx)) continue;
+                    if (!Regex.IsMatch(file.Name.ToLower(), filterRegEx)) continue;
                 }
 
-                //Match file on RegularExpression exclude filter
+                // Match file on RegularExpression exclude filter
                 if (optExcludeFilter)
                 {
                     if (Regex.IsMatch(file.Name.ToLower(), excludeFilterRegEx)) continue;
                 }
 
-                //Check if file is too old
+                // Check if file is too old
                 if (age >= maxAge)
                 {
                     try
                     {
-                        //Delete file if not simulating
+                        // Delete file if not simulating
                         if (!optSimulate)
                         {
                             file.IsReadOnly = false;
@@ -183,13 +182,13 @@ namespace Cleanup
                 }
             }
 
-            
-            //Delete directory if option /D is supplied, not the root folder and is empty
+
+            // Delete directory if option /D is supplied, not the root folder and is empty
             try
             {
                 if (optDeleteEmpty && directory != rootDirectory && Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
                 {
-                    //Delete directory if not simulating
+                    // Delete directory if not simulating
                     if (!optSimulate) Directory.Delete(directory);
                     totalDirectories++;
                     Output(" Deleted dir : {0}", directory);
@@ -205,7 +204,7 @@ namespace Cleanup
 
         static int GetFileAge(FileInfo file)
         {
-            //Get the file age in days (youngest of modified- and created date)
+            // Get the file age in days (youngest of modified- and created date)
             TimeSpan ageModified, ageCreated;
             ageModified = DateTime.Today - file.LastWriteTime;
             ageCreated = DateTime.Today - file.CreationTime;
@@ -264,13 +263,13 @@ namespace Cleanup
 
         static void Output(string text, params object[] args)
         {
-            Console.WriteLine(text,args);
-            Log(text,args);
+            Console.WriteLine(text, args);
+            Log(text, args);
         }
 
         static void Log(string text, params object[] args)
         {
-            logFile.WriteLine(DateTime.Now+" "+text,args);
+            logFile.WriteLine(DateTime.Now + " " + text, args);
         }
     }
 }
