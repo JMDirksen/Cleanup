@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cleanup", "Cleanup\Cleanup.csproj", "{34D489D4-187C-437A-A238-4E7014818D2B}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cleanup", "Cleanup\Cleanup.csproj", "{EFCD4830-9479-482F-8120-C6B18B03485B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34D489D4-187C-437A-A238-4E7014818D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34D489D4-187C-437A-A238-4E7014818D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34D489D4-187C-437A-A238-4E7014818D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34D489D4-187C-437A-A238-4E7014818D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFCD4830-9479-482F-8120-C6B18B03485B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFCD4830-9479-482F-8120-C6B18B03485B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFCD4830-9479-482F-8120-C6B18B03485B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFCD4830-9479-482F-8120-C6B18B03485B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {23F1324B-9A7B-4997-B626-BCE6BCEC89CC}
 	EndGlobalSection
 EndGlobal
