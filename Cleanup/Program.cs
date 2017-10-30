@@ -1,10 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Cleanup
 {
@@ -198,7 +194,6 @@ namespace Cleanup
                 }
             }
 
-
             // Delete directory if option /D is supplied and directory is at level (depth) optDeleteEmptyLevel or deeper and directory is empty
             try
             {
@@ -244,39 +239,35 @@ namespace Cleanup
         static void ShowUsage()
         {
             string usage;
-            usage = "\n";
-            usage += "------------------------------------------------------------------------------\n";
-            usage += "   Cleanup v1.4  -  Delete old files and directories - TechnologySolutions\n";
-            usage += "------------------------------------------------------------------------------\n";
-            usage += "\n";
-            usage += "         Usage  :  Cleanup directory age [options]\n";
-            usage += "\n";
-            usage += "\n";
-            usage += "     directory  :  Directory to cleanup.\n";
-            usage += "                   Like: drive:\\path or \\\\server\\share\\path\n";
-            usage += "\n";
-            usage += "           age  :  Delete files older than .. days.\n";
-            usage += "                   Looking at youngest date modified/created.\n";
-            usage += "                   0 will delete all files.\n";
-            usage += "\n";
-            usage += "\n";
-            usage += "     /F:filter  :  Only delete files which match this filter\n";
-            usage += "                   Like: /F:*.abc or /F:filename.ab?\n";
-            usage += "    /EF:filter  :  Exclude files which match this filter\n";
-            usage += "                   Like: /EF:keep.me or /EF:*.doc\n";
-            usage += "            /R  :  Recurse subdirecotries\n";
-            usage += "            /D  :  Delete empty subdirectories (same as: /D:1)\n";
-            usage += "      /D:level  :  Only delete empty directories from specified level and below\n";
-            usage += "                   Like: Cleanup.exe c:\\rootdir 7 /r /d:2\n";
-            usage += "                   Will remove empty directory c:\\rootdir\\level1\\level2 but not directory level1\n";
-            usage += "          /SIM  :  Simulate, don't delete anything\n";
-            usage += "          /LOG  :  Write output to screen and to Cleanup.log\n";
-            usage += "  /LOG:logfile  :  Write output to screen and to logfile\n";
-            usage += "                   Like: /LOG:cleanup.log or /LOG:\"C:\\Log Files\\cleanup.log\"\n";
-            usage += "\n";
-            usage += "\n";
-            usage += ".cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it.\n";
-            usage += "\n";
+            usage = Environment.NewLine;
+            usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
+            usage += @"   Cleanup v1.4  -  Delete old files and directories - TechnologySolutions" + Environment.NewLine;
+            usage += @"------------------------------------------------------------------------------" + Environment.NewLine;
+            usage += Environment.NewLine;
+            usage += @"         Usage  :  Cleanup directory age [options]" + Environment.NewLine;
+            usage += Environment.NewLine;
+            usage += @"     directory  :  Directory to cleanup" + Environment.NewLine;
+            usage += @"                   Like: drive:\path or \\server\share\path" + Environment.NewLine;
+            usage += @"           age  :  Delete files older than .. days" + Environment.NewLine;
+            usage += @"                   Looking at youngest date modified/created" + Environment.NewLine;
+            usage += @"                   0 will delete all files" + Environment.NewLine;
+            usage += Environment.NewLine;
+            usage += @"     /F:filter  :  Only delete files which match this filter" + Environment.NewLine;
+            usage += @"                   Like: /F:*.abc or /F:filename.ab?" + Environment.NewLine;
+            usage += @"    /EF:filter  :  Exclude files which match this filter" + Environment.NewLine;
+            usage += @"                   Like: /EF:keep.me or /EF:*.doc" + Environment.NewLine;
+            usage += @"            /R  :  Recurse subdirecotries" + Environment.NewLine;
+            usage += @"            /D  :  Delete empty subdirectories (same as: /D:1)" + Environment.NewLine;
+            usage += @"      /D:level  :  Only delete empty directories from .. level and below" + Environment.NewLine;
+            usage += @"                   Like: Cleanup.exe c:\rootdir 7 /r /d:2" + Environment.NewLine;
+            usage += @"                   Will remove empty directory c:\rootdir\level1\level2 but not directory level1" + Environment.NewLine;
+            usage += @"          /SIM  :  Simulate, don't delete anything" + Environment.NewLine;
+            usage += @"          /LOG  :  Write output to screen and to Cleanup.log" + Environment.NewLine;
+            usage += @"  /LOG:logfile  :  Write output to screen and to logfile" + Environment.NewLine;
+            usage += @"                   Like: /LOG:cleanup.log or /LOG:""C:\Log Files\cleanup.log""" + Environment.NewLine;
+            usage += Environment.NewLine;
+            usage += @".cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it" + Environment.NewLine;
+            usage += Environment.NewLine;
             Console.WriteLine(usage);
         }
 
