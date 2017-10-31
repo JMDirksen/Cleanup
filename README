@@ -3,9 +3,9 @@ Cleanup
 
 Console tool for cleaning up old files in a directory tree
 
-------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
    Cleanup v1.5  -  Delete old files and directories - TechnologySolutions
-------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
          Usage  :  Cleanup directory age [options]
 
@@ -30,3 +30,5 @@ Console tool for cleaning up old files in a directory tree
                    Like: /LOG:cleanup.log or /LOG:"C:\Log Files\cleanup.log"
 
 .cleanupignore  :  A directory can be ignored by placing a file named .cleanupignore in it
+
+

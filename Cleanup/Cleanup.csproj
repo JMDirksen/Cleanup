@@ -58,4 +58,11 @@
     <Content Include="cleanup.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>echo Cleanup&gt; $(SolutionDir)README
+echo =======&gt;&gt; $(SolutionDir)README
+echo.&gt;&gt; $(SolutionDir)README
+echo Console tool for cleaning up old files in a directory tree&gt;&gt; $(SolutionDir)README
+$(TargetPath) &gt;&gt; $(SolutionDir)README</PostBuildEvent>
+  </PropertyGroup>
 </Project>
