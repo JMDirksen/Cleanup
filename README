@@ -4,7 +4,7 @@ Cleanup
 Console tool for cleaning up old files in a directory tree
 
 -----------------------------------------------------------------------------
-   Cleanup v1.5  -  Delete old files and directories - TechnologySolutions
+   Cleanup v1.6  -  Delete old files and directories - TechnologySolutions
 -----------------------------------------------------------------------------
 
          Usage  :  Cleanup directory age [options]
