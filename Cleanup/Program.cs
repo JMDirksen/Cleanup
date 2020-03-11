@@ -141,7 +141,17 @@ namespace Cleanup
             }
 
             // Process directories
-            DirectoryInfo[] dirs = dirInfo.GetDirectories();
+            DirectoryInfo[] dirs = null;
+            try
+            {
+                dirs = dirInfo.GetDirectories();
+            }
+            catch (Exception e)
+            {
+                Output(" Error: Directory {0}. ({1})", directory, e.Message.ToString());
+                totalErrors++;
+                return;
+            }
 
             foreach (DirectoryInfo dir in dirs)
             {
